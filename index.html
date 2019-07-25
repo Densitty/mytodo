@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Todo Tasks App</title>
+    <style>
+        button {
+            outline: none;
+            cursor: pointer;
+            border: 1px solid transparent;
+            background: #546e0a;
+            color: #fff;
+            border-radius: 2px;
+            padding: 5px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+        .searchTodo {
+            background: #ccc;
+            color: #000;
+            outline: 0;
+            border: none;
+            padding: 6px 10px;
+            height: 1rem
+        }
+        .addTodo {
+            background: #ccc;
+            color: #000;
+            outline: 0;
+            border: none;
+            padding: 6px 10px;
+            height: 1rem
+        }
+        .todoButton {
+            background: #ff0000;
+            color: #fff;
+            padding: 2px;
+            position: absolute;
+            left: 200px;
+        }
+        div {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>My todo tasks</h1>    
+    <input type="text" placeholder="Search your todo..." class="searchTodo">
+    <label for="notes">
+        Hide completed todos? <input id="checkbox" type="checkbox">
+    </label>
+    <div id="todo">
+
+    </div>
+    <form action="" id="form">
+        <input type="text" placeholder="Type your todo here..." class="addTodo" name="todo">
+        <button id="addTodo">Add Todo</button>
+    </form>
+    
+    <script src="uuidv4.js"></script>
+    <script src="todoRefactor.js"></script>
+    <script src="todos.js"></script>
+</body>
+</html>
