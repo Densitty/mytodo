@@ -1,42 +1,46 @@
-const todos = getSavedTodos();
-
+//get the todo from storage
+const todos = getSavedTodo();
 const search = document.querySelector('.searchTodo');
 const form = document.querySelector('#form');
+const checkbox = document.querySelector('#checkbox');
 
-//Set our search parameter for filtering
+//create a filter to search for any todo
 const filters = {
 	searchText: '',
-	hideCompleted: false
-};
+	hideCompleted: false,
+}
 
-//call the renderTodos function defined 
-renderTodos(todos, filters);
+//call the renderTodos on loading the document and also call it other times in events
+renderTodos(todos, filters)
 
-//Listen for input event on our input tag
+//create the search parameter
 search.addEventListener('input', function (e) {
+	//anything we enter to the searchbar should be assigned as value to filters.searchText
 	filters.searchText = e.target.value;
-	//document.querySelector('#todo').innerHTML = '';
+	//empty out the #todo before displaying another content on it by calling the empty summary function
+	emptySummary();
+	//after emptying out the #todo content, render the todos
 	renderTodos(todos, filters);
-});
+})
 
-form.addEventListener('submit', (e) => {
+//add todo on submission
+form.addEventListener('submit', function (e) {
 	e.preventDefault();
-
-	//on submitting the form, push data to the todos array
 	todos.push({
 		id: uuidv4(),
 		text: e.target.elements.todo.value,
 		completed: false
 	});
-
-	//call the function saving to local storage
-	saveTodos(todos)
-
+	saveTodo(todos)
+	emptySummary();
 	e.target.elements.todo.value = '';
 	renderTodos(todos, filters);
-});
+})
 
-document.querySelector('#checkbox').addEventListener('change', function (e) {
+//using our checkbox to display the todos that are not completed
+checkbox.addEventListener('change', function (e) {
 	filters.hideCompleted = e.target.checked;
+	emptySummary();
 	renderTodos(todos, filters)
+	//console.log(filters)
 })
