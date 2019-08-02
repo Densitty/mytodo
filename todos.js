@@ -42,5 +42,4 @@ checkbox.addEventListener('change', function (e) {
 	filters.hideCompleted = e.target.checked;
 	emptySummary();
 	renderTodos(todos, filters)
-	//console.log(filters)
 })

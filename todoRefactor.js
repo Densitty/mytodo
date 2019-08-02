@@ -7,14 +7,33 @@ const incompleteSummaryText = function (incompleteTodos) {
     summary.appendChild(summaryText);
 }
 
+const makeContent = function (todo, index) {
+    const list = document.querySelector('#todo');
+    const check = document.createElement('input');
+
+    check.setAttribute('type', 'checkbox');
+    list.appendChild(check)
+
+    const button = document.createElement('button')
+    const div = document.createElement('div');
+    const para = document.createElement('span');
+
+    para.textContent = `${index + 1}. ${todo.text}`;
+    button.textContent = 'x';
+
+    list.appendChild(para);
+    list.appendChild(button);
+    list.appendChild(div);
+    console.log(list)
+    return list;
+}
+
 //manipulate the data display on checking the checkbox
 const hideCompletedTasks = function (incompleteTodos) {
     document.querySelector('#todo').innerHTML = '';
     incompleteTodos.forEach(function (todo, index) {
-        const list = document.querySelector('#todo');
-        const para = document.createElement('p');
-        para.textContent = `${index + 1}. ${todo.text}`;
-        list.appendChild(para)
+        makeContent(todo, index);
+        // return div;
     });
 }
 
@@ -30,6 +49,7 @@ const getSavedTodo = function () {
 
 //generate DOM structure function
 const filteredTodoDOM = function (todo, index) {
+    //makeContent(todo, index)
     const div = document.createElement('div');
     const text = document.createElement('span');
     const button = document.createElement('button');
