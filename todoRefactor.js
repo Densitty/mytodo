@@ -8,7 +8,7 @@ const incompleteSummaryText = function (incompleteTodos) {
 }
 
 const makeContent = function (todo, index) {
-    const list = document.querySelector('#todo');
+    /*const list = document.querySelector('#todo');
     const check = document.createElement('input');
 
     check.setAttribute('type', 'checkbox');
@@ -25,14 +25,31 @@ const makeContent = function (todo, index) {
     list.appendChild(button);
     list.appendChild(div);
     console.log(list)
-    return list;
+    return list;*/
+    const div = document.createElement('div');
+    const text = document.createElement('span');
+    const button = document.createElement('button');
+    const check = document.createElement('input');
+    //setup the checkbox
+    check.setAttribute('type', 'checkbox');
+    div.appendChild(check);
+    //setup the text content rendered onto the DOM
+    text.textContent = `${index + 1}. ${todo.text}`;
+    div.appendChild(text);
+    //create the content of the button dynamically created
+    button.textContent = 'x';
+    //attach button created to the div
+    div.appendChild(button);
+
+    return div;
 }
 
 //manipulate the data display on checking the checkbox
 const hideCompletedTasks = function (incompleteTodos) {
     document.querySelector('#todo').innerHTML = '';
     incompleteTodos.forEach(function (todo, index) {
-        makeContent(todo, index);
+        const para = makeContent(todo, index);
+        document.querySelector('#todo').appendChild(para)
         // return div;
     });
 }
@@ -49,22 +66,7 @@ const getSavedTodo = function () {
 
 //generate DOM structure function
 const filteredTodoDOM = function (todo, index) {
-    //makeContent(todo, index)
-    const div = document.createElement('div');
-    const text = document.createElement('span');
-    const button = document.createElement('button');
-    const check = document.createElement('input');
-    //setup the checkbox
-    check.setAttribute('type', 'checkbox');
-    div.appendChild(check);
-    //setup the text content rendered onto the DOM
-    text.textContent = `${index + 1}. ${todo.text}`;
-    div.appendChild(text);
-    //create the content of the button dynamically created
-    button.textContent = 'x';
-    //attach button created to the div
-    div.appendChild(button);
-
+    const div = makeContent(todo, index);
     return div;
 }
 
