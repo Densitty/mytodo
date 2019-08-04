@@ -53,6 +53,7 @@ const makeContent = function (todo, index) {
     button.textContent = 'x';
     //attach button created to the div
     div.appendChild(button);
+    button.setAttribute('class', 'remove');
     //delete each todo on the click of the button attached
     button.addEventListener('click', function () {
         //clear out the initial summary text
