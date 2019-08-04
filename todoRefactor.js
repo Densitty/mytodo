@@ -7,6 +7,19 @@ const incompleteSummaryText = function (incompleteTodos) {
     summary.appendChild(summaryText);
 }
 
+//remove each todo by clicking the button
+const removeTodo = function (id) {
+    const todoIndex = todos.findIndex(function (todo) {
+        return todo.id === id;
+    })
+
+    if (todoIndex > -1) {
+        todos.splice(todoIndex, 1)
+    }
+
+
+}
+
 const makeContent = function (todo, index) {
     /*const list = document.querySelector('#todo');
     const check = document.createElement('input');
@@ -40,6 +53,16 @@ const makeContent = function (todo, index) {
     button.textContent = 'x';
     //attach button created to the div
     div.appendChild(button);
+    //delete each todo on the click of the button attached
+    button.addEventListener('click', function () {
+        //clear out the initial summary text
+        emptySummary();
+        //remove the todo clicked that matches the id presented
+        removeTodo(todo.id);
+        //rerender the todo and save the todos
+        saveTodo(todos)
+        renderTodos(todos, filters)
+    })
 
     return div;
 }
