@@ -16,8 +16,17 @@ const removeTodo = function (id) {
     if (todoIndex > -1) {
         todos.splice(todoIndex, 1)
     }
+}
 
-
+//grab each todo by its id
+const toggleTodo = function (id) {
+    const findTodo = todos.find(function (todo) {
+        return todo.id === id
+    })
+    //flipping 
+    if (findTodo != undefined) {
+        findTodo.completed = !findTodo.completed
+    }
 }
 
 const makeContent = function (todo, index) {
@@ -45,6 +54,7 @@ const makeContent = function (todo, index) {
     const check = document.createElement('input');
     //setup the checkbox
     check.setAttribute('type', 'checkbox');
+    check.checked = todo.completed;
     div.appendChild(check);
     //setup the text content rendered onto the DOM
     text.textContent = `${index + 1}. ${todo.text}`;
@@ -62,6 +72,20 @@ const makeContent = function (todo, index) {
         removeTodo(todo.id);
         //rerender the todo and save the todos
         saveTodo(todos)
+        renderTodos(todos, filters)
+    })
+
+    check.addEventListener('change', function (e) {
+        emptySummary();
+        /* this is my method of toggling comleted each todo as either done or not done
+        if (e.target.checked) {
+            todo.completed = true;
+        } else {
+            todo.completed = false;
+        }*/
+        //Another method is below function
+        toggleTodo(todo.id);
+        saveTodo(todos);
         renderTodos(todos, filters)
     })
 
