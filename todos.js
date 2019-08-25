@@ -14,7 +14,7 @@ const filters = {
 renderTodos(todos, filters)
 
 //create the search parameter
-search.addEventListener('input', function (e) {
+search.addEventListener('input', e => {
 	//anything we enter to the searchbar should be assigned as value to filters.searchText
 	filters.searchText = e.target.value;
 	//empty out the #todo before displaying another content on it by calling the empty summary function
@@ -24,7 +24,7 @@ search.addEventListener('input', function (e) {
 })
 
 //add todo on submission
-form.addEventListener('submit', function (e) {
+form.addEventListener('submit', e => {
 	e.preventDefault();
 	todos.push({
 		id: uuidv4(),
@@ -38,7 +38,7 @@ form.addEventListener('submit', function (e) {
 })
 
 //using our checkbox to display the todos that are not completed
-checkbox.addEventListener('change', function (e) {
+checkbox.addEventListener('change', e => {
 	filters.hideCompleted = e.target.checked;
 	emptySummary();
 	renderTodos(todos, filters)

@@ -1,6 +1,6 @@
 
 //create a summary function and then call it 
-const incompleteSummaryText = function (incompleteTodos) {
+const incompleteSummaryText = incompleteTodos => {
     const summaryText = document.createElement('h2');
     summaryText.textContent = `You have ${incompleteTodos.length} tasks to complete`;
     summaryText.style.color = 'red';
@@ -9,7 +9,7 @@ const incompleteSummaryText = function (incompleteTodos) {
 
 //remove each todo by clicking the button
 const removeTodo = function (id) {
-    const todoIndex = todos.findIndex(function (todo) {
+    const todoIndex = todos.findIndex(todo => {
         return todo.id === id;
     })
 
@@ -19,7 +19,7 @@ const removeTodo = function (id) {
 }
 
 //grab each todo by its id
-const toggleTodo = function (id) {
+const toggleTodo = id => {
     const findTodo = todos.find(function (todo) {
         return todo.id === id
     })
@@ -29,7 +29,7 @@ const toggleTodo = function (id) {
     }
 }
 
-const makeContent = function (todo, index) {
+const makeContent = (todo, index) => {
     /*const list = document.querySelector('#todo');
     const check = document.createElement('input');
 
@@ -65,7 +65,7 @@ const makeContent = function (todo, index) {
     div.appendChild(button);
     button.setAttribute('class', 'remove');
     //delete each todo on the click of the button attached
-    button.addEventListener('click', function () {
+    button.addEventListener('click', () => {
         //clear out the initial summary text
         emptySummary();
         //remove the todo clicked that matches the id presented
@@ -75,7 +75,7 @@ const makeContent = function (todo, index) {
         renderTodos(todos, filters)
     })
 
-    check.addEventListener('change', function (e) {
+    check.addEventListener('change', e => {
         emptySummary();
         /* this is my method of toggling comleted each todo as either done or not done
         if (e.target.checked) {
@@ -93,9 +93,9 @@ const makeContent = function (todo, index) {
 }
 
 //manipulate the data display on checking the checkbox
-const hideCompletedTasks = function (incompleteTodos) {
+const hideCompletedTasks = incompleteTodos => {
     document.querySelector('#todo').innerHTML = '';
-    incompleteTodos.forEach(function (todo, index) {
+    incompleteTodos.forEach((todo, index) => {
         const para = makeContent(todo, index);
         document.querySelector('#todo').appendChild(para)
         // return div;
@@ -103,7 +103,7 @@ const hideCompletedTasks = function (incompleteTodos) {
 }
 
 //get the saved todos from our local storage if it exists and if not return an empty array
-const getSavedTodo = function () {
+const getSavedTodo = () => {
     const todosJSON = localStorage.getItem('todos')
     if (todosJSON !== null) {
         return JSON.parse(todosJSON);
@@ -113,29 +113,27 @@ const getSavedTodo = function () {
 }
 
 //generate DOM structure function
-const filteredTodoDOM = function (todo, index) {
+const filteredTodoDOM = (todo, index) => {
     const div = makeContent(todo, index);
     return div;
 }
 
 //render the list by filtering out the matching todo upon searching
-const renderTodos = function (todos, filters) {
-    const filteredTodos = todos.filter(function (todo) {
+const renderTodos = (todos, filters) => {
+    const filteredTodos = todos.filter(todo => {
         return todo.text.toLowerCase().includes(filters.searchText.toLowerCase())
     });
 
     document.querySelector('#todo').innerHTML = '';
 
-    filteredTodos.forEach(function (todo, index) {
+    filteredTodos.forEach((todo, index) => {
         const para = filteredTodoDOM(todo, index);
         document.querySelector('#todo').appendChild(para)
     });
 
     //Filter out the uncompleted todo
     //the incompletetodos should derive its data from the fitleredTodos array. If it does from the todos array, the dynamism on search will be taken away
-    const incompleteTodos = filteredTodos.filter(function (todo) {
-        return !todo.completed
-    })
+    const incompleteTodos = filteredTodos.filter(todo => !todo.completed)
 
     //call the summary function
     incompleteSummaryText(incompleteTodos);
@@ -149,12 +147,11 @@ const renderTodos = function (todos, filters) {
 }
 
 //save to storage function
-const saveTodo = function (todos) {
-    return localStorage.setItem('todos', JSON.stringify(todos));
-}
+const saveTodo = todos => localStorage.setItem('todos', JSON.stringify(todos));
+
 
 //get the summary to print an empty document
-const emptySummary = function () {
+const emptySummary = () => {
     const summary = document.querySelector('#summary');
     summary.innerHTML = '';
 }
