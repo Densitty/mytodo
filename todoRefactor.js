@@ -9,9 +9,8 @@ const incompleteSummaryText = incompleteTodos => {
 
 //remove each todo by clicking the button
 const removeTodo = function (id) {
-    const todoIndex = todos.findIndex(todo => {
-        return todo.id === id;
-    })
+    const todoIndex = todos.findIndex(todo => todo.id === id
+    )
 
     if (todoIndex > -1) {
         todos.splice(todoIndex, 1)
@@ -105,11 +104,18 @@ const hideCompletedTasks = incompleteTodos => {
 //get the saved todos from our local storage if it exists and if not return an empty array
 const getSavedTodo = () => {
     const todosJSON = localStorage.getItem('todos')
-    if (todosJSON !== null) {
+
+    try {
+        return todosJSON ? JSON.parse(todosJSON) : [];
+    } catch (error) {
+        return [];
+    }
+    /*
+    if (todosJSON) {
         return JSON.parse(todosJSON);
     } else {
         return [];
-    }
+    }*/
 }
 
 //generate DOM structure function
@@ -139,11 +145,13 @@ const renderTodos = (todos, filters) => {
     incompleteSummaryText(incompleteTodos);
 
     //choose to display todo on checking checkbox
+    return filters.hideCompleted ? hideCompletedTasks(incompleteTodos) : filteredTodos;
+    /*
     if (filters.hideCompleted) {
         hideCompletedTasks(incompleteTodos)
     } else {
         return filteredTodos
-    }
+    }*/
 }
 
 //save to storage function
